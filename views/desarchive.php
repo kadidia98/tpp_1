@@ -1,6 +1,6 @@
 <?php
 include('../config/db.php');
-//code pour archiver en changeant la valeur 0 par 1
+//code pour desarchiver en changeant la valeur 1par 0
 if (isset($_GET['decid'])) {
     $id=$_GET['decid'];
     

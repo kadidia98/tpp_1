@@ -7,7 +7,7 @@ if (isset($_GET['modifid'])) {
     $req=$conn->prepare("UPDATE user SET/*  etat='1'  */ prenom= :prenom, nom= :nom, mail= :email WHERE id='$id'");
     $req->execute();
     if($req){
-        header('location:formModif.php');
+        header("location:formModif.php?modif = modification reussi");
      }
      echo"hh";
 }

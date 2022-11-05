@@ -17,7 +17,7 @@
   $res->execute(array($email));
   $tab=$res->fetchAll();
   if (count($tab)==0) {
-    header("location:../views/connexion.php? message= Ce compte n'existe pas");
+    header("location:../views/index.php? message= Ce compte n'existe pas");
 
   }
   
@@ -27,7 +27,7 @@
   $ras->execute(array($email,$password));
   $tub=$ras->fetchAll();
         if(count($tub)==0) {
-          header("location:../views/connexion.php? message= mot de passe non exitant");
+          header("location:../views/index.php? message= mot de passe non exitant");
 
         }
         else {
@@ -41,14 +41,16 @@
               session_start(); 
               $_SESSION["autoriser"]="oui";
               $_SESSION["identifiant"] = $row["id"];
-         $_SESSION["nomPrenom"]=strtoupper($row[0]["nom"]."".$row[0]["prenom"]); 
+              $_SESSION['photo']=$row['photo'];
+             
+            
          header("location:../views/dashbordAdmin.php");
             }
             else {
               session_start(); 
               $_SESSION["autoriser"]="oui";
               $_SESSION["identifiant"] = $row["id"];
-         $_SESSION["nomPrenom"]=strtoupper($row[0]["nom"]."".$row[0]["prenom"]); 
+              $_SESSION['photo']=$row['photo'];
          header("location:../views/utilisateur.php");
           }
   
