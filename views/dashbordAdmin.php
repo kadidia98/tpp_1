@@ -42,7 +42,7 @@ $id=  $_SESSION["identifiant"];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css">
 </head>
 <header>
-  <p><?=$_GET['modif']?? null?></p>
+<p><?=$_GET['modifid']?? null?></p>
 </header>
 
 <body style="background-color: #367995;">
@@ -64,6 +64,7 @@ $id=  $_SESSION["identifiant"];
     </div>
     
   </nav>
+ 
 
   <div class="container w-50 p-3 col-md-5 mb-5  ">
 
