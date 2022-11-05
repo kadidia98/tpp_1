@@ -39,12 +39,12 @@ include("../controllers/traitementconnexion.php");
     <div class="container w-50 p-3 col-md-5 mb-5 base_color ">
 
       <form class=" row g-5 d-flex justify-content-center" action="../controllers/traitementconnexion.php" method="POST">
-        <p class="text-center text-uppercase">Connexion</p>
+        <h1 class="text-center text-uppercase">Connexion</h1>
       
 <!-- <div>
  <?php
  /* echo $message; */?></div >-->
- <p><?=$_GET["message"]?? null?></p>
+ <p style="color: red; display:flex; justify-content:center;"><?=$_GET["message"]?? null?></p>
         <div class="col-md-8">
           <label for="exampleInputEmail1" class="form-label">Email</label>
           <input class="form-control rounded-0" type="email" name="email" id="email" style=" border: 1px solid black" required>

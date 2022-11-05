@@ -47,14 +47,14 @@ if(isset($_POST['nom'], $_POST['prenom'], $_POST['email'])){
 <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
 <div class="container-fluid">
     <img src="img/personne-physique-ou-morale-ce-quil-vous-faut-savoir-13012022020600081226.jpg" alt="" style=" clip-path: ellipse(50% 50%); width: 80px; height:40px;" srcset="">
-    <a href="connexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
-    <i class="fa-solid fa-arrow-right-from-bracket" ></i>
-    
-        </a>
+   <!--  
+    <a href="dashbordAdmin.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
+          Admin
+        </a> -->
   </div>
 </nav>
 
-<div style="width: 1500px; padding-top:200px;"  class="d-flex justify-content-center">
+<div style="width: 1500px; padding-top:250px; margin-left:170px;"  class="d-flex justify-content-center ">
     <div class="contain  w-50 p-3 col-md-5 mb-8 base_color">
     <p class="text-center text-uppercase">Page Modification</p>
 
@@ -77,9 +77,9 @@ if(isset($_POST['nom'], $_POST['prenom'], $_POST['email'])){
      </div>
   
 
-     <div class="col-md-6">
+     <div class="col-md-6" style="margin-right: 350px;">
       <label for="input3" class="form-label">Email<span style="color: red;">*</span></label>
-      <input type="email" name="email" class="form-control  p-3 rounded-0 d-flex" id="email" value="<?= $check["mail"] ?? null ?>" required>
+      <input type="email" name="email" class="form-control p-3 mr-6 rounded-0 " id="email" value="<?= $check["mail"] ?? null ?>" required>
     
       <div class="valid-feedback">Email field is valid!</div>
      <div class="invalid-feedback d-none" id="champ-reqEmail">champs requis</div>

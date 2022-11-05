@@ -16,10 +16,10 @@
     <div class="contain  w-50 p-3 col-md-5 mb-8 base_color">
     <p class="text-center text-uppercase">Page inscription</p>
 
-    <p><?=$_GET["message"]?? null?></p>
+    <p style="color: green; display:flex; justify-content:center;"><?=$_GET["message"] ?? null?></p>
 
 
-    <form class="row g-3 d-flex justify-content-center no-wrap m-2 bg-light" action="../controllers/traitementinscription.php" method="POST">
+    <form enctype="multipart/form-data" class="row g-3 d-flex justify-content-center no-wrap m-2 bg-light" action="../controllers/traitementinscription.php" method="POST">
     
 
      <div class="col-md-6">
@@ -38,7 +38,7 @@
      <div class="col-md-6">
       <label for="input3" class="form-label">Email<span style="color: red;">*</span></label>
       <input type="email" name="email" class="form-control  p-3 rounded-0 " id="email" required>
-     <p><?=$_GET["message1"]?? null?></p>
+     <p style="color: red ;"><?=$_GET["message1"]?? null?></p>
       <div class="valid-feedback">Email field is valid!</div>
      <div class="invalid-feedback d-none" id="champ-reqEmail">champs requis</div>
      <div class="invalid-feedback d-none" id="email-invalid">email incorrect</div>
@@ -82,7 +82,7 @@
     <div class="col-md-8 " style="padding-top: 12px; margin-left: 450px;">
   <button type="submit" class="col-md-3 rounded-0" id="submit" style="background-color: #437089; color:#ffff">S'inscrire</button>
   </div>
-  <a href="connexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
+  <a href="index.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
     Se connecter
 </a>
 </form>
