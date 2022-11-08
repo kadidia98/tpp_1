@@ -61,7 +61,7 @@ $id=  $_SESSION["identifiant"];
     <button type="submit" class="col-md-6 rounded-0 " id="submit" style="background-color: #437089;"><a class="d-flex  text-decoration-none text-dark" href="modifPass.php">modifier pass</a>  </button>
 
     </div>
-      <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
+      <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark " title="Deconnexion">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
    </a>
 
@@ -84,14 +84,8 @@ $id=  $_SESSION["identifiant"];
         $utilisateur = "";
         $req = $conn->prepare('SELECT `id`, `matricule`, `nom`, `prenom`, `mail`, `roles`, `mot_de_passe`, `photo`, `date_ins`, `date_modif`, `date_archive`, `roles_etat`, `etat` FROM `user` WHERE `etat`=0 and `matricule` = "' . $recherche . '"');
         $req->execute(['matricule' => $recherche]);
-        //  if ($req->fetch() == false) {
         $utilisateur = $req->fetch();
-        // }
-        //  var_dump($utilisateur);die;
-
-        // if ($reponse->rowCount() > 0) {
-        // $utilisateur = $reponse->fetchA();
-        $existe = true;
+         $existe = true;
       }
 
       ?>
