@@ -46,11 +46,10 @@ if(isset($_POST['nom'], $_POST['prenom'], $_POST['email'])){
 <body style="background-color:  #367995;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
 <div class="container-fluid">
-    <img src="img/personne-physique-ou-morale-ce-quil-vous-faut-savoir-13012022020600081226.jpg" alt="" style=" clip-path: ellipse(50% 50%); width: 80px; height:40px;" srcset="">
-   <!--  
-    <a href="dashbordAdmin.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
+  
+    <!-- <a href="dashbordAdmin.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark" style="margin-left: 500px;">
           Admin
-        </a> -->
+        </a>  -->
   </div>
 </nav>
 

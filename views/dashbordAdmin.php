@@ -12,10 +12,13 @@ exit;
 @$email = $_POST["email"];
 @$password =md5($_POST["password"]) ;
 $id=  $_SESSION["identifiant"];
- $affiche=$conn->prepare("SELECT  * FROM user WHERE $id"); 
+ $affiche=$conn->prepare("SELECT  * FROM user WHERE id = $id"); 
  $affiche->setFetchMode(PDO::FETCH_ASSOC);
  $affiche->execute(array($email,$password));
  $row=$affiche->fetchAll();
+
+
+//  var_dump($row[0]['prenom']);die;
    foreach ($row as $row) {
 
    };
@@ -42,7 +45,7 @@ $id=  $_SESSION["identifiant"];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css">
 </head>
 <header>
-  <p><?=$_GET['modif']?? null?></p>
+<p><?=$_GET['modifid']?? null?></p>
 </header>
 
 <body style="background-color: #367995;">
@@ -55,15 +58,17 @@ $id=  $_SESSION["identifiant"];
       <div style="display: flex; gap:1rem; margin-right: 200px;">
     <p class="prenom"><?=$row['prenom']?></p>
     <p class="nom"><?=$row['nom']?></p>
-    
+    <button type="submit" class="col-md-6 rounded-0 " id="submit" style="background-color: #437089;"><a class="d-flex  text-decoration-none text-dark" href="modifPass.php">modifier pass</a>  </button>
+
     </div>
-      <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
+      <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark " title="Deconnexion">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
    </a>
 
     </div>
     
   </nav>
+ 
 
   <div class="container w-50 p-3 col-md-5 mb-5  ">
 
@@ -79,14 +84,8 @@ $id=  $_SESSION["identifiant"];
         $utilisateur = "";
         $req = $conn->prepare('SELECT `id`, `matricule`, `nom`, `prenom`, `mail`, `roles`, `mot_de_passe`, `photo`, `date_ins`, `date_modif`, `date_archive`, `roles_etat`, `etat` FROM `user` WHERE `etat`=0 and `matricule` = "' . $recherche . '"');
         $req->execute(['matricule' => $recherche]);
-        //  if ($req->fetch() == false) {
         $utilisateur = $req->fetch();
-        // }
-        //  var_dump($utilisateur);die;
-
-        // if ($reponse->rowCount() > 0) {
-        // $utilisateur = $reponse->fetchA();
-        $existe = true;
+         $existe = true;
       }
 
       ?>
@@ -152,13 +151,13 @@ $pages = ceil($nbUtilisateurs / $parPage);
 // Calcul du 1er article de la page
 $premier = ($currentPage * $parPage) - $parPage;
 
-$sql = $conn->prepare( "SELECT * FROM user WHERE etat=0 ORDER BY id DESC LIMIT $premier, $parPage;");
+$sql = $conn->prepare( "SELECT * FROM user WHERE etat=0 ORDER BY id != $id DESC LIMIT $premier, $parPage;");
 $sql->execute();
 
 
-/*         $id = $_SESSION["identifiant"];
+       /* $id = $_SESSION["identifiant"];
         $sql = $conn->prepare("SELECT * FROM user WHERE id != $id");
-        $sql->execute(); */
+        $sql->execute();  */
         // var_dump($sql->fetch());die;
 
 
@@ -173,7 +172,7 @@ $sql->execute();
             $email = $utilisateur['mail'];
             $role = $utilisateur['roles'];
             $id = $utilisateur['id'];
-            // if ($etat == 0) {
+           
               echo '<tr class="table-light">
                 <td>' . $matricule . '</td>
   
@@ -206,7 +205,8 @@ $sql->execute();
             if ($etat == 0) {
              
               echo '<tr class="table-light">';
-              echo  '<td>' . $matricule . '</td>';
+
+             if($matricule != $row['matricule']){ echo  '<td>' . $matricule . '</td>';
   
               echo  '<td>' . $nom . '</td>';
               echo  '<td>' . $prenom . '</td>';
@@ -215,7 +215,7 @@ $sql->execute();
   
               
                echo  '<td> <a href="formModif.php?modifid=' . $id . '"> <i class="fa-solid fa-pen-to-square" style="color:black;"></i> </a> <a onclick="return confirm(\'voulez-vous archiver cet utilisateur?\')" href="archive.php?supid=' . $id . '"><i class="fa-solid fa-file-zipper "style="color:red;"></i> </a> <a href="switch.php?switchid=' . $id . '"><i class="fa-solid fa-repeat " style="color:black;"></i></a>  </td>';
-                   
+                   }
                
                
                

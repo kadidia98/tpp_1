@@ -2,30 +2,30 @@
  session_start(); 
 
 require_once('../config/db.php');
-
-
  if($_SESSION['autoriser']=!'oui'){
 header('location:index.php');
 exit;
+
+
 } 
 
-/* $sql = $conn->prepare("SELECT * FROM user WHERE id = ?");
-$sql->execute($_SESSION['identifiant']);
-$row = $sql->fetch(); */
 @$email = $_POST["email"];
 @$password =md5($_POST["password"]) ;
 $id=  $_SESSION["identifiant"];
- $affiche=$conn->prepare("SELECT  * FROM user WHERE $id"); 
+ $affiche=$conn->prepare("SELECT  * FROM user WHERE id = $id"); 
  $affiche->setFetchMode(PDO::FETCH_ASSOC);
  $affiche->execute(array($email,$password));
  $row=$affiche->fetchAll();
+
+
+//  var_dump($row[0]['prenom']);die;
    foreach ($row as $row) {
 
    };
 
 
-?>
 
+?>
 
 
 
@@ -44,30 +44,37 @@ $id=  $_SESSION["identifiant"];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/regular.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css">
 </head>
+<header>
+<p><?=$_GET['modifid']?? null?></p>
+</header>
 
 <body style="background-color: #367995;">
   <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
     <div class="container-fluid">
-    <div>
+      <div>
       <img src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo'])?>" alt="" style=" clip-path: ellipse(50% 50%); width: 40px; height:40px;" srcset="">
       <p class="matricule"><?=$row['matricule']?></p>
       </div>
       <div style="display: flex; gap:1rem; margin-right: 200px;">
     <p class="prenom"><?=$row['prenom']?></p>
     <p class="nom"><?=$row['nom']?></p>
-    
+    <button type="submit" class="col-md-6 rounded-0 " id="submit" style="background-color: #437089;"><a class="d-flex  text-decoration-none text-dark" href="modifPass.php">modifier pass</a>  </button>
+
     </div>
       <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
    </a>
+
     </div>
+    
   </nav>
+ 
 
   <div class="container w-50 p-3 col-md-5 mb-5  ">
 
-    <h1 class="mb-5" style="text-align: center;">Tableau Utilisateur Simple</h1>
+    <h1 class="mb-5" style="text-align: center;">Tableau utilisateur simple</h1>
     <div class="col-md-8 " style="padding-top: 5px;">
-
+  
       <?php
 
       if (isset($_GET['recherche'])) {
@@ -90,11 +97,17 @@ $id=  $_SESSION["identifiant"];
       ?>
 
 
+
       <form class="search d-flex justify-content-end " action="" method="GET">
         <input type="search" id="search_elv_input" name="recherche" placeholder="recherche..." required>
         <input type="submit" value="recherche" id="search_elv_button">
 
       </form>
+
+
+
+
+
 
     </div>
     <table class="table table-striped table table-bordered">
@@ -106,19 +119,21 @@ $id=  $_SESSION["identifiant"];
           <th scope="col">prenom</th>
           <th scope="col">email</th>
           <th scope="col">role</th>
-          
+    
         </tr>
       </thead>
       <tbody>
         <?php
+//la pagination debute ici
+
 
 
 
 // On détermine sur quelle page on se trouve
 if(isset($_GET['page']) && !empty($_GET['page'])){
-  $currentPage = (int) strip_tags($_GET['page']);
+    $currentPage = (int) strip_tags($_GET['page']);
 }else{
-  $currentPage = 1;
+    $currentPage = 1;
 }
 
 
@@ -145,22 +160,13 @@ $pages = ceil($nbUtilisateurs / $parPage);
 // Calcul du 1er article de la page
 $premier = ($currentPage * $parPage) - $parPage;
 
-$sql = $conn->prepare( "SELECT * FROM user WHERE etat=0 ORDER BY id DESC LIMIT $premier, $parPage;");
+$sql = $conn->prepare( "SELECT * FROM user WHERE etat=0 ORDER BY id != $id DESC LIMIT $premier, $parPage;");
 $sql->execute();
 
 
-
-
-
-
-
-
-
-
-/* 
-        $id = $_SESSION["identifiant"];
+       /* $id = $_SESSION["identifiant"];
         $sql = $conn->prepare("SELECT * FROM user WHERE id != $id");
-        $sql->execute(); */
+        $sql->execute();  */
         // var_dump($sql->fetch());die;
 
 
@@ -175,17 +181,22 @@ $sql->execute();
             $email = $utilisateur['mail'];
             $role = $utilisateur['roles'];
             $id = $utilisateur['id'];
-            // if ($etat == 0) {
-              echo '<tr class="table-light">';
-              echo  '<td>' . $matricule . '</td>';
+           
+              echo '<tr class="table-light">
+                <td>' . $matricule . '</td>
   
-              echo  '<td>' . $nom . '</td>';
-              echo  '<td>' . $prenom . '</td>';
-              echo  '<td>' . $email . '</td>';
-              echo  '<td>' . $role . '</td>';
+               <td>' . $nom . '</td>
+               <td>' . $prenom . '</td>
+               <td>' . $email . '</td>
+              <td>' . $role . '</td>
   
               
-              echo '</tr>';
+      
+              
+              
+              </td>
+          
+              </tr>';
             
           
         }else{
@@ -198,26 +209,46 @@ $sql->execute();
             $email = $donnee['mail'];
             $role = $donnee['roles'];
             $id = $donnee['id'];
+           
             if ($etat == 0) {
+             
               echo '<tr class="table-light">';
-              echo  '<td>' . $matricule . '</td>';
+
+             if($matricule != $row['matricule']){ echo  '<td>' . $matricule . '</td>';
   
               echo  '<td>' . $nom . '</td>';
               echo  '<td>' . $prenom . '</td>';
               echo  '<td>' . $email . '</td>';
               echo  '<td>' . $role . '</td>';
   
-             
-              echo '</tr>';
+              
+               
+                   }
+               
+               
+               
+              
+      
+                            
+            
+              
+           echo '</tr>';
+           
             }
+              
           }
         }
 
     
 
         ?>
+     
+
       </tbody>
     </table>
+
+    
+   <!--  suite PAGINATION -->
 
     <nav>
                     <ul class="pagination fixed-bottom justify-content-center">
@@ -238,8 +269,16 @@ $sql->execute();
                     </ul>
                 </nav>
    
-
   </div>
+
+
+
+
+
+
+
+
+
 
 
 
