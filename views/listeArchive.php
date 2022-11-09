@@ -44,8 +44,15 @@ if($_SESSION['autoriser']=!'oui'){
 <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
   <div class="container-fluid">
 <div>
-  <img src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo'])?>" alt="" style=" clip-path: ellipse(50% 50%); width: 40px; height:40px;" srcset="">
-      <p class="matricule"><?=$row['matricule']?></p>
+<?php  if(isset($_SESSION['photo'] ) && $_SESSION['photo']) {
+           ?>
+       
+          <img src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo'])?>" alt="" style=" clip-path: ellipse(50% 50%); width: 40px; height:40px;" srcset="">
+<?php
+        }else {
+          echo '<img src="img/user.png">
+          ';
+        }?>      <p class="matricule"><?=$row['matricule']?></p>
       </div>
 
       <div style="display: flex; gap:1rem; margin-right: 200px;">
