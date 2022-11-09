@@ -1,6 +1,10 @@
 <?php 
-require_once('../config/db.php');
+session_start();
 
+require_once('../config/db.php');
+if($_SESSION['autoriser']=!'oui'){
+    header('location:index.php');
+    exit;}
 
 if (isset($_GET['modifid'])){
     $id=$_GET['modifid'];
@@ -23,13 +27,30 @@ if(isset($_POST['nom'], $_POST['prenom'], $_POST['email'])){
     $edit=$conn->prepare("UPDATE user SET nom='$nom',prenom='$prenom', mail='$email', date_modif='$date_modif' WHERE id=$id");
     $edit->execute();
     if($edit){
-        header('location: dashbordAdmin.php? message= modification réussi!!');
+        header('location: formModif.php? message= modification réussi!!');
       
     }
     else { die('Erreur : '.$e->getMessage());
     }
 }
      }
+
+     @$email = $_POST["email"];
+     @$password =md5($_POST["password"]) ;
+     $id=  $_SESSION["identifiant"];
+      $affiche=$conn->prepare("SELECT  * FROM user WHERE id = $id"); 
+      $affiche->setFetchMode(PDO::FETCH_ASSOC);
+      $affiche->execute(array($email,$password));
+      $row=$affiche->fetchAll();
+     
+     
+     //  var_dump($row[0]['prenom']);die;
+        foreach ($row as $row) {
+     
+        };
+
+
+
 
      ?> 
 <!DOCTYPE html>
@@ -46,6 +67,19 @@ if(isset($_POST['nom'], $_POST['prenom'], $_POST['email'])){
 <body style="background-color:  #367995;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
 <div class="container-fluid">
+
+
+
+
+<div>
+      <img src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo'])?>" alt="" style=" clip-path: ellipse(50% 50%); width: 40px; height:40px;" srcset="">
+      <p class="matricule"><?=$row['matricule']?></p>
+      </div>
+      <div style="display: flex; gap:1rem; margin-right: 1520px;">
+    <p class="prenom"><?=$row['prenom']?></p>
+    <p class="nom"><?=$row['nom']?></p>
+
+    </div>
   
     <!-- <a href="dashbordAdmin.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark" style="margin-left: 500px;">
           Admin
@@ -56,8 +90,7 @@ if(isset($_POST['nom'], $_POST['prenom'], $_POST['email'])){
 <div style="width: 1500px; padding-top:250px; margin-left:170px;"  class="d-flex justify-content-center ">
     <div class="contain  w-50 p-3 col-md-5 mb-8 base_color">
     <p class="text-center text-uppercase">Page Modification</p>
-
-    <p><?=$_GET["message"]?? null?></p>
+    <p style="color: green; display:flex; justify-content:center;"><?=$_GET["message"] ?? null?></p>
 
 
     <form class="row g-3  d-flex justify-content-center no-wrap m-2 bg-light" action="" method="POST">
@@ -96,7 +129,7 @@ if(isset($_POST['nom'], $_POST['prenom'], $_POST['email'])){
     <div class="col-md-8 " style="padding-top: 12px; margin-left: 450px;">
   <button type="submit" class="col-md-3 rounded-0" id="submit" style="background-color: #437089; color:#ffff"><a>  modifier</a>  </button>
   </div>
- 
+  <a href="dashbordAdmin.php" style="text-decoration: none; color:black;display:flex; justify-content: end;">retour</a>
 </form>
     </div>
 </div>

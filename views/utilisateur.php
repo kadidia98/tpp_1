@@ -58,7 +58,6 @@ $id=  $_SESSION["identifiant"];
       <div style="display: flex; gap:1rem; margin-right: 200px;">
     <p class="prenom"><?=$row['prenom']?></p>
     <p class="nom"><?=$row['nom']?></p>
-    <button type="submit" class="col-md-6 rounded-0 " id="submit" style="background-color: #437089;"><a class="d-flex  text-decoration-none text-dark" href="modifPass.php">modifier pass</a>  </button>
 
     </div>
       <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">

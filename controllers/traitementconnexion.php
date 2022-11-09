@@ -2,7 +2,7 @@
 <?php
 
 
-
+ @$etat = $_POST["etat"]; 
  @$email = $_POST["email"];
  @$password =md5($_POST["password"]) ;
  @$submit = $_POST["submit"];
@@ -10,18 +10,22 @@
  if(isset($submit)) {
     include("../config/db.php");
 
-  $res=$conn->prepare("SELECT id,photo, roles, mail, mot_de_passe, etat FROM user WHERE mail= ? and mot_de_passe = ?" ); 
+  $res=$conn->prepare("SELECT id,photo, roles, mail, mot_de_passe, etat FROM user WHERE etat = 0 and mail= ? and mot_de_passe = ? " ); 
   
-
   $res->setFetchMode(PDO::FETCH_ASSOC);
   $res->execute(array($email, $password));
   $tab=$res->fetchAll();
   // var_dump($tab);
   
-  if (count($tab)==0) {
+
+  if (count($tab)==0 ) {
     header("location:../views/index.php? message= Ce compte n'existe pas");
   }else{
-      if (md5($_POST["password"]) == $tab[0]['mot_de_passe'] ) {
+  
+      if (md5($_POST["password"]) == $tab[0]['mot_de_passe']) {
+        
+
+
         session_start(); 
               $_SESSION["autoriser"]="oui";
               $_SESSION["identifiant"] = $tab[0]["id"];
