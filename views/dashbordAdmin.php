@@ -44,7 +44,6 @@ $id=  $_SESSION["identifiant"];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css">
 </head>
 <header>
-<p><?=$_GET['modifid']?? null?></p>
 </header>
 
 <body style="background-color: #367995;">
@@ -126,6 +125,8 @@ $id=  $_SESSION["identifiant"];
       </thead>
       <tbody>
         <?php
+
+//pagination
 
 // On détermine sur quelle page on se trouve
 if(isset($_GET['page']) && !empty($_GET['page'])){
