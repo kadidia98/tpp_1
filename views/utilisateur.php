@@ -45,23 +45,30 @@ $id=  $_SESSION["identifiant"];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css">
 </head>
 <header>
-<p><?=$_GET['modifid']?? null?></p>
+
 </header>
 
 <body style="background-color: #367995;">
   <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
     <div class="container-fluid">
       <div>
-      <img src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo'])?>" alt="" style=" clip-path: ellipse(50% 50%); width: 40px; height:40px;" srcset="">
-      <p class="matricule"><?=$row['matricule']?></p>
+      <?php  if(isset($_SESSION['photo'] ) && $_SESSION['photo']) {
+           ?>
+       
+          <img src="data:image/jpg;base64,<?= base64_encode($_SESSION['photo'])?>" alt="" style=" clip-path: ellipse(50% 50%); width: 40px; height:40px;" srcset="">
+<?php
+        }else {
+          echo '<img src="img/user.png">
+          ';
+        }?>
+              <p class="matricule"><?=$row['matricule']?></p>
       </div>
       <div style="display: flex; gap:1rem; margin-right: 200px;">
     <p class="prenom"><?=$row['prenom']?></p>
     <p class="nom"><?=$row['nom']?></p>
-    <button type="submit" class="col-md-6 rounded-0 " id="submit" style="background-color: #437089;"><a class="d-flex  text-decoration-none text-dark" href="modifPass.php">modifier pass</a>  </button>
 
     </div>
-      <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark">
+      <a href="deconnexion.php" class="col-md-8 d-flex justify-content-end text-decoration-none text-dark" title="deconnexion">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
    </a>
 
