@@ -11,7 +11,7 @@ require_once('../config/db.php');
 if(isset($_GET['password0'], $_GET['password1'])){
      
     $password1=  $_GET['password1'];
-    $password0 = $_GET['password0'];
+    $password0 = $_GET['password'];
 
     
 
@@ -23,7 +23,7 @@ if(isset($_GET['password0'], $_GET['password1'])){
         if ($req-> rowCount()>0){
             $check = $req->fetchAll()[0];
  
-    if (md5($password0)==$check['mot_de_passe']){
+    if (md5($password)==$check['mot_de_passe']){
 
         $edit=$conn->prepare("UPDATE user SET mot_de_passe=$password1 WHERE id=$id");
         $edit->execute();
@@ -108,7 +108,7 @@ $id=  $_SESSION["identifiant"];
 
      <div class="col-md-6">
       <label for="input1" class="form-label">ancien password <span style="color: red;">*</span></label>
-      <input type="password" name="password0" class="form-control  p-3 rounded-0" id="password0"  required>
+      <input type="password" name="password" class="form-control  p-3 rounded-0" id="password0"  required>
       <div class="invalid-feedback d-none" id="champ-reqNom">champs requis</div>
      </div>
  
