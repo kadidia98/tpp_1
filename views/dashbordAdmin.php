@@ -2,7 +2,7 @@
  session_start(); 
 
 require_once('../config/db.php');
- if($_SESSION['autoriser']=!'oui'){
+ if($_SESSION['autoriser']!='oui'){
 header('location:index.php');
 exit;
 
@@ -12,6 +12,7 @@ exit;
 @$email = $_POST["email"];
 @$password =md5($_POST["password"]) ;
 $id=  $_SESSION["identifiant"];
+
  $affiche=$conn->prepare("SELECT  * FROM user WHERE id = $id"); 
  $affiche->setFetchMode(PDO::FETCH_ASSOC);
  $affiche->execute(array($email,$password));
@@ -87,8 +88,9 @@ $id=  $_SESSION["identifiant"];
         $recherche = htmlspecialchars($_GET['recherche']);
 
         $utilisateur = "";
-        $req = $conn->prepare('SELECT `id`, `matricule`, `nom`, `prenom`, `mail`, `roles`, `mot_de_passe`, `photo`, `date_ins`, `date_modif`, `date_archive`, `roles_etat`, `etat` FROM `user` WHERE `etat`=0 and `matricule` = "' . $recherche . '"');
-        $req->execute(['matricule' => $recherche]);
+        $etat = 0;
+        $req = $conn->prepare('SELECT `id`, `matricule`, `nom`, `prenom`, `mail`, `roles`, `mot_de_passe`, `photo`, `date_ins`, `date_modif`, `date_archive`, `roles_etat`, `etat` FROM `user` WHERE `id`!='.$id.' and `etat`='.$etat.'  and `matricule` = "' . $recherche . '"');
+        $req->execute(['id' => $id, 'matricule' => $recherche]);
         $utilisateur = $req->fetch();
          $existe = true;
       }
@@ -168,7 +170,7 @@ $sql->execute();
         // var_dump($sql->fetch());die;
 
 
-        if (isset($existe) && $existe) {
+        if (isset($existe) && $existe && $utilisateur != null) {
   ?>
     <a href="dashbordAdmin.php" style="text-decoration: none; color:black;display:flex; justify-content: center;">retour</a>
   <?php
