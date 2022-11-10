@@ -2,7 +2,7 @@
  session_start(); 
 
 require_once('../config/db.php');
- if($_SESSION['autoriser']=!'oui'){
+ if($_SESSION['autoriser']!='oui'){
 header('location:index.php');
 exit;
 
@@ -126,6 +126,7 @@ $id=  $_SESSION["identifiant"];
           <th scope="col">prenom</th>
           <th scope="col">email</th>
           <th scope="col">role</th>
+          <th scope="col">Date inscription</th>
     
         </tr>
       </thead>
@@ -187,6 +188,7 @@ $sql->execute();
             $prenom = $utilisateur['prenom'];
             $email = $utilisateur['mail'];
             $role = $utilisateur['roles'];
+            $dateins = $utilisateur['date_ins'];
             $id = $utilisateur['id'];
            
               echo '<tr class="table-light">
@@ -196,6 +198,7 @@ $sql->execute();
                <td>' . $prenom . '</td>
                <td>' . $email . '</td>
               <td>' . $role . '</td>
+              <td>' . $dateins . '</td>
   
               
       
@@ -215,6 +218,7 @@ $sql->execute();
             $prenom = $donnee['prenom'];
             $email = $donnee['mail'];
             $role = $donnee['roles'];
+            $dateins = $donnee['date_ins'];
             $id = $donnee['id'];
            
             if ($etat == 0) {
@@ -227,7 +231,7 @@ $sql->execute();
               echo  '<td>' . $prenom . '</td>';
               echo  '<td>' . $email . '</td>';
               echo  '<td>' . $role . '</td>';
-  
+              echo  '<td>' . $dateins . '</td>';
               
                
                    }

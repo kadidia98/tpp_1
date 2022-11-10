@@ -2,7 +2,7 @@
 session_start();
 
 require_once('../config/db.php');
-if($_SESSION['autoriser']=!'oui'){
+if($_SESSION['autoriser']!='oui'){
     header('location:index.php');
     exit;}
 

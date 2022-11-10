@@ -22,17 +22,20 @@
     <form enctype="multipart/form-data" class="row g-3 d-flex justify-content-center no-wrap m-2 bg-light" action="../controllers/traitementinscription.php" method="POST">
     
 
+    <div class="col-md-6">
+      <label for="input2" class="form-label">prenom<span style="color: red;">*</span></label>
+      <input type="text" name="prenom" class="form-control p-3 rounded-0" id="prenom" required>
+      
+      <div class="invalid-feedback d-none" id="champ-reqPrenom">champs requis</div>
+     </div>
+
      <div class="col-md-6">
       <label for="input1" class="form-label">Nom <span style="color: red;">*</span></label>
       <input type="text" name="nom" class="form-control  p-3 rounded-0" id="nom" required>
+      
       <div class="invalid-feedback d-none" id="champ-reqNom">champs requis</div>
      </div>
  
-     <div class="col-md-6">
-      <label for="input2" class="form-label">prenom<span style="color: red;">*</span></label>
-      <input type="text" name="prenom" class="form-control p-3 rounded-0" id="prenom" required>
-      <div class="invalid-feedback d-none" id="champ-reqPrenom">champs requis</div>
-     </div>
   
 
      <div class="col-md-6">
@@ -45,17 +48,11 @@
      </div>
 
 
+         
      <div class="col-md-6">
-     <label for="input4" class="form-label">Role<span style="color: red;">*</span></label>
-     <select class="form-select  p-3 rounded-0" id="roles" name="roles" aria-label=".form-select-lg example" required>
-     
- 
-        <option value=""></option>
-        <option value="utilisateur">Utilisateur</option>
-        <option value="admin">Admin</option>
-    </select>
-    <div class="invalid-feedback d-none" id="champ-reqRole">champs requis</div>
-    </div>     
+      <label for="input7" class="form-label">Photo</label>
+      <input type="file" name="photo" class="form-control p-3 rounded-0">
+     </div>
 
 
      <div class="col-md-6">
@@ -74,10 +71,18 @@
       <div class="invalid-feedback d-none" id="confirmation">les  mots de passe ne correspondent pas</div> 
      </div>
 
+
      <div class="col-md-6">
-      <label for="avatar" class="form-label">Photo</label>
-      <input type="file" name="photo" class="form-control p-3 rounded-0">
-     </div>
+     <label for="input4" class="form-label">Role<span style="color: red;">*</span></label>
+     <select class="form-select  p-3 rounded-0" id="roles" name="roles" aria-label=".form-select-lg example" required>
+     
+ 
+        <option value=""></option>
+        <option value="utilisateur">Utilisateur</option>
+        <option value="admin">Admin</option>
+    </select>
+    <div class="invalid-feedback d-none" id="champ-reqRole">champs requis</div>
+    </div> 
 
     <div class="col-md-8 " style="padding-top: 12px; margin-left: 450px;">
   <button type="submit" class="col-md-3 rounded-0" id="submit" style="background-color: #437089; color:#ffff">S'inscrire</button>

@@ -2,7 +2,7 @@
 session_start(); 
 require_once('../config/db.php');
 
-if($_SESSION['autoriser']=!'oui'){
+if($_SESSION['autoriser']!='oui'){
   header('location:index.php');
   exit;
   
@@ -69,8 +69,7 @@ if($_SESSION['autoriser']=!'oui'){
 </nav>
 
     <div class="container w-50 p-3 col-md-5 mb-5  ">
-    
-      <h1 class="mb-5" style="text-align: center;">Liste Archiver</h1>
+       <h1 class="mb-5" style="text-align: center;">Liste Archiver</h1>
     
        <table class="table table-striped table table-bordered">
  
